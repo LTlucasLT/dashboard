@@ -1,705 +1,137 @@
-```html
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Personal Dashboard</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #eef3f8;
-            color: #243447;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #355c7d, #6c8ebf);
-            color: white;
-            padding: 35px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 17px;
-        }
-
-        #date {
-            margin-top: 8px;
-            font-size: 15px;
-            opacity: 0.9;
-        }
-
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        nav button {
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            background: #dce6f2;
-            color: #243447;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        nav button:hover {
-            background: #355c7d;
-            color: white;
-        }
-
-        /* Main */
-        main {
-            max-width: 1100px;
-            margin: auto;
-            padding: 30px 20px;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .section-title h2 {
-            font-size: 28px;
-            margin-bottom: 7px;
-        }
-
-        .section-title p {
-            color: #657786;
-        }
-
-        /* Cards */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-
-        .city-image {
-            width: 100%;
-            height: 170px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .temperature {
-            font-size: 40px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-
-        .weather-info {
-            color: #657786;
-            line-height: 1.7;
-        }
-
-        /* Clock */
-        .clock {
-            font-size: 42px;
-            font-weight: bold;
-            text-align: center;
-            margin: 25px 0 10px;
-        }
-
-        .timezone {
-            text-align: center;
-            color: #657786;
-        }
-
-        /* Currency */
-        .currency-box {
-            max-width: 500px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .currency-box label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-        }
-
-        .currency-box input,
-        .currency-box select {
-            width: 100%;
-            padding: 13px;
-            margin-bottom: 18px;
-            border: 1px solid #ccd6dd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .convert-button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            background: #355c7d;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .convert-button:hover {
-            background: #294862;
-        }
-
-        #conversionResult {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .loading {
-            color: #657786;
-        }
-
-        .error {
-            color: #c0392b;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #657786;
-            font-size: 14px;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 25px;
-            }
-
-            nav {
-                flex-wrap: wrap;
-            }
-
-            nav button {
-                padding: 10px 18px;
-            }
-
-            .clock {
-                font-size: 32px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Personal Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#eef3f8;color:#243447;min-height:100vh}
+header{background:linear-gradient(135deg,#355c7d,#6c8ebf);color:white;padding:35px 20px;text-align:center}
+header h1{font-size:32px;margin-bottom:10px} header p{font-size:17px} #date{margin-top:8px;font-size:15px;opacity:.9}
+nav{display:flex;justify-content:center;gap:15px;padding:20px;background:white;box-shadow:0 2px 8px rgba(0,0,0,.08);flex-wrap:wrap}
+nav button{border:0;padding:12px 25px;border-radius:25px;background:#dce6f2;color:#243447;font-size:15px;cursor:pointer}
+nav button:hover{background:#355c7d;color:white}
+main{max-width:1100px;margin:auto;padding:30px 20px}.section{display:none}.section.active{display:block}
+.section-title{text-align:center;margin-bottom:25px}.section-title h2{font-size:28px;margin-bottom:7px}.section-title p{color:#657786}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.card,.currency-box{background:white;border-radius:18px;padding:25px;box-shadow:0 5px 15px rgba(0,0,0,.08)}
+.card h3{font-size:22px;margin-bottom:15px}.city-image{width:100%;height:170px;object-fit:cover;border-radius:12px;margin-bottom:15px}
+.temperature{font-size:40px;font-weight:bold;margin:10px 0}.weather-info{color:#657786;line-height:1.7}
+.clock{text-align:center;font-size:42px;font-weight:bold;margin:25px 0 10px}.timezone{text-align:center;color:#657786}
+.currency-box{max-width:500px;margin:auto}.currency-box label{display:block;margin-bottom:7px;font-weight:bold}
+.currency-box input,.currency-box select{width:100%;padding:13px;margin-bottom:18px;border:1px solid #ccd6dd;border-radius:8px;font-size:16px}
+.convert-button{width:100%;padding:13px;border:0;border-radius:8px;background:#355c7d;color:white;font-size:16px;cursor:pointer}
+#conversionResult{text-align:center;font-size:22px;font-weight:bold;margin-top:20px}.loading{color:#657786}.error{color:#c0392b}
+footer{text-align:center;padding:25px;color:#657786;font-size:14px}
+@media(max-width:600px){header h1{font-size:25px}.clock{font-size:32px}}
+</style>
 </head>
-
 <body>
-
-    <!-- Header -->
-    <header>
-        <h1 id="greeting">Good afternoon!</h1>
-        <p>Welcome to my personal dashboard</p>
-        <div id="date"></div>
-    </header>
-
-
-    <!-- Navigation -->
-    <nav>
-        <button onclick="showSection('weather')">🌤️ Weather</button>
-        <button onclick="showSection('time')">🕐 Time</button>
-        <button onclick="showSection('currency')">💱 Currency</button>
-    </nav>
-
-
-    <main>
-
-        <!-- WEATHER SECTION -->
-        <section id="weather" class="section active">
-
-            <div class="section-title">
-                <h2>Weather</h2>
-                <p>Current weather and tomorrow's forecast</p>
-            </div>
-
-            <div class="cards">
-
-                <!-- Chiang Mai -->
-                <div class="card">
-                    <h3>🇹🇭 Chiang Mai</h3>
-
-                    <!-- Replace this URL with your own photo if you want -->
-                    <img
-                        class="city-image"
-                        src="https://images.unsplash.com/photo-1598970605070-a38a6ccd6a2d?auto=format&fit=crop&w=900&q=80"
-                        alt="Chiang Mai">
-
-                    <div id="chiangMaiWeather" class="loading">
-                        Loading weather...
-                    </div>
-                </div>
-
-
-                <!-- Yangon -->
-                <div class="card">
-                    <h3>🇲🇲 Yangon</h3>
-
-                    <!-- Replace this URL with your own photo if you want -->
-                    <img
-                        class="city-image"
-                        src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=900&q=80"
-                        alt="Yangon">
-
-                    <div id="yangonWeather" class="loading">
-                        Loading weather...
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- TIME SECTION -->
-        <section id="time" class="section">
-
-            <div class="section-title">
-                <h2>World Clocks</h2>
-                <p>Current local time in Chiang Mai and Yangon</p>
-            </div>
-
-            <div class="cards">
-
-                <div class="card">
-                    <h3>🇹🇭 Chiang Mai</h3>
-
-                    <div id="chiangMaiClock" class="clock">
-                        --:--:--
-                    </div>
-
-                    <p class="timezone">
-                        Asia/Bangkok
-                    </p>
-                </div>
-
-
-                <div class="card">
-                    <h3>🇲🇲 Yangon</h3>
-
-                    <div id="yangonClock" class="clock">
-                        --:--:--
-                    </div>
-
-                    <p class="timezone">
-                        Asia/Yangon
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CURRENCY SECTION -->
-        <section id="currency" class="section">
-
-            <div class="section-title">
-                <h2>Currency Converter</h2>
-                <p>Convert between USD, Thai Baht and Myanmar Kyat</p>
-            </div>
-
-            <div class="currency-box">
-
-                <label for="amount">Amount</label>
-
-                <input
-                    type="number"
-                    id="amount"
-                    value="1"
-                    min="0"
-                    step="any">
-
-
-                <label for="fromCurrency">From</label>
-
-                <select id="fromCurrency">
-                    <option value="USD">USD - US Dollar</option>
-                    <option value="THB">THB - Thai Baht</option>
-                    <option value="MMK">MMK - Myanmar Kyat</option>
-                </select>
-
-
-                <label for="toCurrency">To</label>
-
-                <select id="toCurrency">
-                    <option value="THB">THB - Thai Baht</option>
-                    <option value="USD">USD - US Dollar</option>
-                    <option value="MMK">MMK - Myanmar Kyat</option>
-                </select>
-
-
-                <button class="convert-button" onclick="convertCurrency()">
-                    Convert
-                </button>
-
-                <div id="conversionResult">
-                    Enter an amount and press Convert
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-        Week 6 Lab • Personal Dashboard
-    </footer>
-
-
-    <script>
-
-        /* =========================
-           GREETING AND DATE
-        ========================= */
-
-        function updateGreeting() {
-
-            const now = new Date();
-            const hour = now.getHours();
-
-            let greeting;
-
-            if (hour < 12) {
-                greeting = "Good morning!";
-            } else if (hour < 18) {
-                greeting = "Good afternoon!";
-            } else {
-                greeting = "Good evening!";
-            }
-
-            document.getElementById("greeting").textContent = greeting;
-
-            const dateText = now.toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            });
-
-            document.getElementById("date").textContent = dateText;
-        }
-
-        updateGreeting();
-
-
-        /* =========================
-           SECTION BUTTONS
-        ========================= */
-
-        function showSection(sectionName) {
-
-            const sections = document.querySelectorAll(".section");
-
-            sections.forEach(function(section) {
-                section.classList.remove("active");
-            });
-
-            document.getElementById(sectionName).classList.add("active");
-        }
-
-
-        /* =========================
-           CLOCKS
-        ========================= */
-
-        function updateClocks() {
-
-            const chiangMaiTime = new Intl.DateTimeFormat("en-US", {
-                timeZone: "Asia/Bangkok",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true
-            }).format(new Date());
-
-            const yangonTime = new Intl.DateTimeFormat("en-US", {
-                timeZone: "Asia/Yangon",
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-                hour12: true
-            }).format(new Date());
-
-            document.getElementById("chiangMaiClock").textContent =
-                chiangMaiTime;
-
-            document.getElementById("yangonClock").textContent =
-                yangonTime;
-        }
-
-        updateClocks();
-
-        setInterval(updateClocks, 1000);
-
-
-        /* =========================
-           WEATHER API
-           Open-Meteo
-        ========================= */
-
-        const cities = {
-
-            chiangMai: {
-                latitude: 18.7883,
-                longitude: 98.9853
-            },
-
-            yangon: {
-                latitude: 16.8409,
-                longitude: 96.1735
-            }
-
-        };
-
-
-        function getWeatherDescription(code) {
-
-            const weatherCodes = {
-
-                0: "☀️ Clear sky",
-
-                1: "🌤️ Mainly clear",
-                2: "⛅ Partly cloudy",
-                3: "☁️ Overcast",
-
-                45: "🌫️ Fog",
-                48: "🌫️ Fog",
-
-                51: "🌦️ Light drizzle",
-                53: "🌦️ Drizzle",
-                55: "🌧️ Heavy drizzle",
-
-                61: "🌧️ Light rain",
-                63: "🌧️ Rain",
-                65: "🌧️ Heavy rain",
-
-                71: "🌨️ Light snow",
-                73: "🌨️ Snow",
-                75: "❄️ Heavy snow",
-
-                80: "🌦️ Rain showers",
-                81: "🌧️ Rain showers",
-                82: "🌧️ Heavy rain showers",
-
-                95: "⛈️ Thunderstorm",
-                96: "⛈️ Thunderstorm",
-                99: "⛈️ Heavy thunderstorm"
-            };
-
-            return weatherCodes[code] || "Unknown weather";
-        }
-
-
-        async function getWeather(cityName, elementId) {
-
-            const city = cities[cityName];
-
-            const url =
-                `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
-
-            try {
-
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    throw new Error("Weather API error");
-                }
-
-                const data = await response.json();
-
-                const currentTemperature =
-                    Math.round(data.current.temperature_2m);
-
-                const humidity =
-                    data.current.relative_humidity_2m;
-
-                const wind =
-                    Math.round(data.current.wind_speed_10m);
-
-                const currentWeather =
-                    getWeatherDescription(data.current.weather_code);
-
-                const tomorrowMax =
-                    Math.round(data.daily.temperature_2m_max[1]);
-
-                const tomorrowMin =
-                    Math.round(data.daily.temperature_2m_min[1]);
-
-                const tomorrowWeather =
-                    getWeatherDescription(data.daily.weather_code[1]);
-
-
-                document.getElementById(elementId).innerHTML = `
-
-                    <div class="temperature">
-                        ${currentTemperature}°C
-                    </div>
-
-                    <div class="weather-info">
-
-                        <p>
-                            <strong>Now:</strong>
-                            ${currentWeather}
-                        </p>
-
-                        <p>
-                            💧 Humidity: ${humidity}%
-                        </p>
-
-                        <p>
-                            💨 Wind: ${wind} km/h
-                        </p>
-
-                        <hr style="margin:15px 0; border:0; border-top:1px solid #ddd;">
-
-                        <p>
-                            <strong>Tomorrow:</strong>
-                            ${tomorrowWeather}
-                        </p>
-
-                        <p>
-                            🌡️ ${tomorrowMin}°C - ${tomorrowMax}°C
-                        </p>
-
-                    </div>
-                `;
-
-            } catch (error) {
-
-                document.getElementById(elementId).innerHTML =
-                    `<p class="error">Unable to load weather data.</p>`;
-            }
-        }
-
-
-        getWeather("chiangMai", "chiangMaiWeather");
-        getWeather("yangon", "yangonWeather");
-
-
-        /* =========================
-           CURRENCY API
-           Frankfurter API
-        ========================= */
-
-        async function convertCurrency() {
-
-            const amount =
-                parseFloat(document.getElementById("amount").value);
-
-            const from =
-                document.getElementById("fromCurrency").value;
-
-            const to =
-                document.getElementById("toCurrency").value;
-
-            const result =
-                document.getElementById("conversionResult");
-
-
-            if (isNaN(amount) || amount < 0) {
-
-                result.textContent =
-                    "Please enter a valid amount.";
-
-                return;
-            }
-
-
-            if (from === to) {
-
-                result.textContent =
-                    `${amount} ${from} = ${amount} ${to}`;
-
-                return;
-            }
-
-
-            result.textContent = "Loading exchange rate...";
-
-
-            try {
-
-                const url =
-                    `https://api.frankfurter.app/latest?from=${from}&to=${to}`;
-
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    throw new Error("Currency API error");
-                }
-
-                const data = await response.json();
-
-                const rate = data.rates[to];
-
-                const converted =
-                    (amount * rate).toFixed(2);
-
-
-                result.textContent =
-                    `${amount} ${from} = ${converted} ${to}`;
-
-            } catch (error) {
-
-                result.textContent =
-                    "Unable to load exchange rate.";
-            }
-        }
-
-    </script>
-
+<header>
+<h1 id="greeting">Good afternoon!</h1>
+<p>Welcome to my personal dashboard</p>
+<div id="date"></div>
+</header>
+
+<nav>
+<button onclick="showSection('weather')">🌤️ Weather</button>
+<button onclick="showSection('time')">🕐 Time</button>
+<button onclick="showSection('currency')">💱 Currency</button>
+</nav>
+
+<main>
+<section id="weather" class="section active">
+<div class="section-title"><h2>Weather</h2><p>Current weather and tomorrow's forecast</p></div>
+<div class="cards">
+<div class="card">
+<h3>🇹🇭 Chiang Mai</h3>
+<img class="city-image" src="https://images.unsplash.com/photo-1598970605070-a38a6ccd6a2d?auto=format&fit=crop&w=900&q=80" alt="Chiang Mai">
+<div id="chiangMaiWeather" class="loading">Loading weather...</div>
+</div>
+<div class="card">
+<h3>🇲🇲 Yangon</h3>
+<img class="city-image" src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=900&q=80" alt="Yangon">
+<div id="yangonWeather" class="loading">Loading weather...</div>
+</div>
+</div>
+</section>
+
+<section id="time" class="section">
+<div class="section-title"><h2>World Clocks</h2><p>Current local time in Chiang Mai and Yangon</p></div>
+<div class="cards">
+<div class="card"><h3>🇹🇭 Chiang Mai</h3><div id="chiangMaiClock" class="clock">--:--:--</div><p class="timezone">Asia/Bangkok</p></div>
+<div class="card"><h3>🇲🇲 Yangon</h3><div id="yangonClock" class="clock">--:--:--</div><p class="timezone">Asia/Yangon</p></div>
+</div>
+</section>
+
+<section id="currency" class="section">
+<div class="section-title"><h2>Currency Converter</h2><p>Convert between USD, Thai Baht and Myanmar Kyat</p></div>
+<div class="currency-box">
+<label for="amount">Amount</label>
+<input type="number" id="amount" value="1" min="0" step="any">
+<label for="fromCurrency">From</label>
+<select id="fromCurrency"><option value="USD">USD - US Dollar</option><option value="THB">THB - Thai Baht</option><option value="MMK">MMK - Myanmar Kyat</option></select>
+<label for="toCurrency">To</label>
+<select id="toCurrency"><option value="THB">THB - Thai Baht</option><option value="USD">USD - US Dollar</option><option value="MMK">MMK - Myanmar Kyat</option></select>
+<button class="convert-button" onclick="convertCurrency()">Convert</button>
+<div id="conversionResult">Enter an amount and press Convert</div>
+</div>
+</section>
+</main>
+
+<footer>Week 6 Lab • Personal Dashboard</footer>
+
+<script>
+function updateGreeting(){
+const now=new Date(),hour=now.getHours();
+document.getElementById("greeting").textContent=hour<12?"Good morning!":hour<18?"Good afternoon!":"Good evening!";
+document.getElementById("date").textContent=now.toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+}
+updateGreeting();
+
+function showSection(name){
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.getElementById(name).classList.add("active");
+}
+
+function updateClocks(){
+document.getElementById("chiangMaiClock").textContent=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Bangkok",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).format(new Date());
+document.getElementById("yangonClock").textContent=new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Yangon",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:true}).format(new Date());
+}
+updateClocks();setInterval(updateClocks,1000);
+
+const cities={chiangMai:{latitude:18.7883,longitude:98.9853},yangon:{latitude:16.8409,longitude:96.1735}};
+function weatherDescription(code){
+const w={0:"☀️ Clear sky",1:"🌤️ Mainly clear",2:"⛅ Partly cloudy",3:"☁️ Overcast",45:"🌫️ Fog",48:"🌫️ Fog",51:"🌦️ Light drizzle",53:"🌦️ Drizzle",55:"🌧️ Heavy drizzle",61:"🌧️ Light rain",63:"🌧️ Rain",65:"🌧️ Heavy rain",71:"🌨️ Light snow",73:"🌨️ Snow",75:"❄️ Heavy snow",80:"🌦️ Rain showers",81:"🌧️ Rain showers",82:"🌧️ Heavy rain showers",95:"⛈️ Thunderstorm",96:"⛈️ Thunderstorm",99:"⛈️ Heavy thunderstorm"};return w[code]||"Unknown weather";
+}
+async function getWeather(city,id){
+const c=cities[city];
+const url=`https://api.open-meteo.com/v1/forecast?latitude=${c.latitude}&longitude=${c.longitude}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+try{
+const r=await fetch(url);if(!r.ok)throw new Error();
+const d=await r.json(),t=Math.round(d.current.temperature_2m),h=d.current.relative_humidity_2m,w=Math.round(d.current.wind_speed_10m);
+document.getElementById(id).innerHTML=`<div class="temperature">${t}°C</div><div class="weather-info"><p><strong>Now:</strong> ${weatherDescription(d.current.weather_code)}</p><p>💧 Humidity: ${h}%</p><p>💨 Wind: ${w} km/h</p><hr style="margin:15px 0;border:0;border-top:1px solid #ddd"><p><strong>Tomorrow:</strong> ${weatherDescription(d.daily.weather_code[1])}</p><p>🌡️ ${Math.round(d.daily.temperature_2m_min[1])}°C - ${Math.round(d.daily.temperature_2m_max[1])}°C</p></div>`;
+}catch(e){document.getElementById(id).innerHTML='<p class="error">Unable to load weather data.</p>';}
+}
+getWeather("chiangMai","chiangMaiWeather");getWeather("yangon","yangonWeather");
+
+async function convertCurrency(){
+const amount=parseFloat(document.getElementById("amount").value),from=document.getElementById("fromCurrency").value,to=document.getElementById("toCurrency").value,result=document.getElementById("conversionResult");
+if(isNaN(amount)||amount<0){result.textContent="Please enter a valid amount.";return}
+if(from===to){result.textContent=`${amount} ${from} = ${amount} ${to}`;return}
+result.textContent="Loading exchange rate...";
+try{
+const r=await fetch(`https://api.frankfurter.app/latest?from=${from}&to=${to}`);if(!r.ok)throw new Error();
+const d=await r.json(),converted=(amount*d.rates[to]).toFixed(2);
+result.textContent=`${amount} ${from} = ${converted} ${to}`;
+}catch(e){result.textContent="Unable to load exchange rate.";}
+}
+</script>
 </body>
 </html>
-```
+'''
+path="/mnt/data/index.html"
+with open(path,"w",encoding="utf-8") as f:
+    f.write(html)
+print(path)
